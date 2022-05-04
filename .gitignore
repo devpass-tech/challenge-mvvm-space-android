@@ -1,46 +1,72 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-# Created by https://www.toptal.com/developers/gitignore/api/android
-# Edit at https://www.toptal.com/developers/gitignore?templates=android
-
-### Android ###
-# Gradle files
-.gradle/
+## Build generated
 build/
+DerivedData/
+/local.properties
 
-# Local configuration file (sdk path, etc)
-local.properties
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+.DS_Store
 
-# Log/OS Files
-*.log
+## Other
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.apk
-output.json
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
 
-# IntelliJ
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
 
-# Keystore files
-*.jks
-*.keystore
+### AppCode ###
+.idea
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+# Package.pins
+.build/
 
-# Android Profiling
-*.hprof
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+#
+Pods/
 
-### Android Patch ###
-gen-external-apklibs
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
 
-# Replacement of .externalNativeBuild directories introduced
-# with Android Studio 3.5.
+Carthage/Build
 
-# End of https://www.toptal.com/developers/gitignore/api/android
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
