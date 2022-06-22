@@ -1,13 +1,13 @@
-package com.devpass.spaceapp.presentation.launchList
+package com.devpass.spaceapp.launch.model
 
 import androidx.recyclerview.widget.DiffUtil
 
 data class LaunchModel(
     val name: String,
-    val number: String,
+    val number: Int,
     var date: String,
-    val status: String,
-    val image: Int
+    val status: Boolean,
+    val image: String
     ) {
     companion object : DiffUtil.ItemCallback<LaunchModel>() {
         override fun areItemsTheSame(oldItem: LaunchModel, newItem: LaunchModel): Boolean {

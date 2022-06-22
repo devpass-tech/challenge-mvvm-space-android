@@ -1,8 +1,12 @@
-package com.devpass.spaceapp.presentation
+package com.devpass.spaceapp.launch.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.devpass.spaceapp.databinding.ActivityTabBinding
+import com.devpass.spaceapp.presentation.FragmentDetails
+import com.devpass.spaceapp.presentation.FragmentLaunchpad
+import com.devpass.spaceapp.presentation.RocketFragment
+import com.devpass.spaceapp.presentation.ViewPagerAdapter
 
 class LaunchActivity : AppCompatActivity() {
 
