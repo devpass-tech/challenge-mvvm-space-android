@@ -18,8 +18,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    flavorDimensions "type"
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
+    flavorDimensions "type"
     productFlavors {
         prod {
             dimension "type"
@@ -28,6 +30,7 @@ android {
         dev {
             dimension "type"
             buildConfigField 'String', 'BASE_URL', '"https://api.spacexdata.com/v4/"'
+            manifestPlaceholders = [MAPS_API_KEY: localProperties["maps_api_key"]]
         }
     }
 

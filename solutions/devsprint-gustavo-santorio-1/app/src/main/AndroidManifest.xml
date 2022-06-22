@@ -15,7 +15,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${apiKey}"/>
+            android:value="${MAPS_API_KEY}"/>
 
         <activity
             android:name="com.devpass.spaceapp.presentation.launchList.LaunchListActivity"
@@ -26,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".presentation.LaunchpadDetailsActivity"
+            android:exported="true"/>
 
         <meta-data
             android:name="preloaded_fonts"
