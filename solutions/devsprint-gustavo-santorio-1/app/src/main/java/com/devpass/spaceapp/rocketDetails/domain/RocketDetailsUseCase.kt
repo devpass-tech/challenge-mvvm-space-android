@@ -1,4 +1,8 @@
 package com.devpass.spaceapp.rocketDetails.domain
 
-class RocketDetailsUseCase {
+import kotlinx.coroutines.flow.Flow
+
+interface RocketDetailsUseCase {
+
+    fun getDetails(): Flow<RocketDetail>
 }

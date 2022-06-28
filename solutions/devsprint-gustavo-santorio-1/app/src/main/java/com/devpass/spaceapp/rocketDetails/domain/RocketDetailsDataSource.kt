@@ -1,4 +1,6 @@
 package com.devpass.spaceapp.rocketDetails.domain
 
-class RocketDetails {
+import com.devpass.spaceapp.rocketDetails.data.RocketDetailsDataSourceImpl
+
+interface RocketDetailsDataSource {
 }
