@@ -1,8 +1,12 @@
-package com.devpass.spaceapp.rocketDetails.data
+package com.devpass.spaceapp.rocketDetails.domain
 
-import com.devpass.spaceapp.rocketDetails.domain.RocketDetailsRepository
-import com.devpass.spaceapp.rocketDetails.domain.RocketDetailsUseCase
+import com.devpass.spaceapp.rocketDetails.data.RockectDetailsRepositoryImpl
+import kotlinx.coroutines.flow.Flow
 
 class RocketDetailsUseCaseImpl(
-    private val repository: RocketDetailsRepository = RockectDetailsRepositoryImpl()):RocketDetailsUseCase{
+    private val repository: RocketDetailsRepository = RockectDetailsRepositoryImpl()
+):RocketDetailsUseCase{
+    override fun getDetails(): Flow<RocketDetail> {
+        TODO("Not yet implemented")
+    }
 }
