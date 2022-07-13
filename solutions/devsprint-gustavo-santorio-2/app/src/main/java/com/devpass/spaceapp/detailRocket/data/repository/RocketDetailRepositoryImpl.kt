@@ -18,7 +18,6 @@ class RocketDetailRepositoryImpl(private val rocketService: SpaceXAPIService =
         try {
             emit(Result.success(resultData))
         } catch (exception: Exception) {
-            messageError.value = exception.localizedMessage ?: "conexão fraca com internet"
             emit(Result.failure(IOException()))
             exception.printStackTrace()
             messageError.value = exception.localizedMessage ?: "error"
