@@ -13,10 +13,10 @@ class RocketDetailRepositoryImpl(private val rocketService: SpaceXAPIService =
     NetworkModule.retrofitInstance.create(SpaceXAPIService::class.java)) : RocketDetailRepository {
 
     override suspend fun getDetailRocket(id: String): Flow<Result<RocketDetailDTO>> = flow {
-        val resultData = rocketService.getDetailRocket(id)
+        val dataResult = rocketService.getDetailRocket(id)
         val messageError = MutableStateFlow<String>("")
         try {
-            emit(Result.success(resultData))
+            emit(Result.success(dataResult))
         } catch (exception: Exception) {
             emit(Result.failure(IOException()))
             exception.printStackTrace()
