@@ -1,4 +1,4 @@
-package com.devpass.spaceapp.presentation
+package com.devpass.spaceapp.launchpad.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
