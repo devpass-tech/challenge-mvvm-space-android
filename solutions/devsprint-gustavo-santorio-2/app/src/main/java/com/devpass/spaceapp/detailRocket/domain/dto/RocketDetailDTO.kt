@@ -44,7 +44,7 @@ data class RocketDetailDTO(
     val id: String,
 
     @SerializedName("landing_legs")
-    val landing_legs: LandingLegs,
+    val landingLegs: LandingLegs,
 
     @SerializedName("mass")
     val mass: Mass,
@@ -69,8 +69,4 @@ data class RocketDetailDTO(
 
     @SerializedName("wikipedia")
     val wikipedia: String
-)
-
-fun RocketDetailDTO.getDetailRocketVO(): RocketDetailVO {
-    return RocketDetailVO(rocketName = name, imagesRocket = flickr_images, descriptionRocket = description)
-}
+)RocketDetailVO
