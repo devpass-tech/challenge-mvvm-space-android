@@ -69,4 +69,4 @@ data class RocketDetailDTO(
 
     @SerializedName("wikipedia")
     val wikipedia: String
-)RocketDetailVO
+)
