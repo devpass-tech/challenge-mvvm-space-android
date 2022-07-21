@@ -22,4 +22,8 @@ class LaunchViewModel(private val repository: FetchLaunchesRepository) : ViewMod
             }.onFailure { message.postValue(it.message) }
         }
     }
+
+    init {
+        getLaunch()
+    }
 }
