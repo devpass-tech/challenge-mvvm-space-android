@@ -8,6 +8,7 @@ import com.devpass.spaceapp.launchpad.domain.model.LaunchpadVO
 class FetchLaunchesRepositoryImpl(
     private val service: SpaceXAPIService = NetworkModule.retrofitInstance.create(SpaceXAPIService::class.java)
 ) : FetchLaunchesRepository {
+
     override suspend fun fetchLaunchpadDetails(id: String): Result<LaunchpadVO> {    
            return runCatching {
              val response = service.fetchLaunchpadDetails(id = id)
@@ -22,17 +23,4 @@ class FetchLaunchesRepositoryImpl(
              }
          }
      }
-        return runCatching {
-            val response = service.fetchLaunchpadDetails(id = id)
-            with(response) {
-                LaunchpadVO(
-                    name = name,
-                    fullName = full_name,
-                    region = region,
-                    launchAttempts = launch_attempts.toString(),
-                    launchSuccesses = launch_successes.toString()
-                )
-            }
-        }
-    }
 }
