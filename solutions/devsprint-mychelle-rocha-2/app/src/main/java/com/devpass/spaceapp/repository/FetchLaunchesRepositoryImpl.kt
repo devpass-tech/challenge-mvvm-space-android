@@ -4,7 +4,7 @@ import com.devpass.spaceapp.data.api.OptionsRequest
 import com.devpass.spaceapp.data.api.QueryRequestParams
 import com.devpass.spaceapp.data.api.SpaceXAPIService
 
-class FetchLaunchesRepositoryImpl(private val api:SpaceXAPIService): FetchLaunchesRepository {
+class FetchLaunchesRepositoryImpl(private val api: SpaceXAPIService) : FetchLaunchesRepository {
     override suspend fun fetchLaunches() {
         api.fetchNextLaunches(getParams())
     }

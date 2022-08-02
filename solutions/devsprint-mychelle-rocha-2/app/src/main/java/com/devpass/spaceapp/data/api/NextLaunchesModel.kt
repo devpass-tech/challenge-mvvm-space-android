@@ -1,4 +1,5 @@
 package com.devpass.spaceapp.data.api
+
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
