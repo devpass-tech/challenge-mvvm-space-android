@@ -13,10 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceApp">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="${apiKey}"/>
-
         <activity
             android:name="com.devpass.spaceapp.presentation.launchList.LaunchListActivity"
             android:exported="true">
