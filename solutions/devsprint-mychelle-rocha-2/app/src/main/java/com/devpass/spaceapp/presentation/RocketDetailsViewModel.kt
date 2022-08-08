@@ -5,20 +5,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devpass.spaceapp.data.api.Results
 import com.devpass.spaceapp.model.Rocket
-import com.devpass.spaceapp.repository.FetchLaunchesRepository
 import com.devpass.spaceapp.repository.FetchRocketRepository
 import kotlinx.coroutines.launch
 
-class LaunchViewModel(
+class RocketDetailsViewModel(
     private val launchRepository: FetchRocketRepository
 ) : ViewModel() {
 
     private val resultRocketLiveData = MutableLiveData<Rocket>()
     private val resultRocketErrorLiveData = MutableLiveData<Throwable>()
 
-    fun fetchRocketDetails(id: String) {
+    fun fetchRocket(id: String) {
         viewModelScope.launch {
-            val resultRocket = launchRepository.getRocketDetails(id)
+            val resultRocket = launchRepository.getRocket(id)
 
             when (resultRocket) {
                 is Results.Success -> {

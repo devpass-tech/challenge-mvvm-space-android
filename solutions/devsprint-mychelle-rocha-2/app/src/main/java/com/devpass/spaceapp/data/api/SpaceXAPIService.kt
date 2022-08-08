@@ -10,7 +10,7 @@ import retrofit2.http.Path
 interface SpaceXAPIService {
 
     @GET("v4/rockets/{id}")
-    suspend fun fetchRocketDetails(@Path("id") id: String): Rocket
+    suspend fun fetchRocket(@Path("id") id: String): Rocket
 
     @POST("v5/launches/query")
     suspend fun fetchNextLaunches(@Body params: QueryRequestParams): NextLaunchesModel

@@ -6,9 +6,9 @@ import com.devpass.spaceapp.model.Rocket
 import com.devpass.spaceapp.repository.FetchRocketRepository
 
 class FetchRocketRepositoryImpl(private val api: SpaceXAPIService) : FetchRocketRepository {
-    override suspend fun getRocketDetails(id: String): Results<Rocket> {
+    override suspend fun getRocket(id: String): Results<Rocket> {
         return try {
-            Results.Success(api.fetchRocketDetails(id))
+            Results.Success(api.fetchRocket(id))
         } catch (e: Exception) {
             Results.Error(Throwable())
         }

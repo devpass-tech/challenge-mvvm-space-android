@@ -4,7 +4,6 @@ import com.devpass.spaceapp.data.api.QueryRequestParams
 import com.devpass.spaceapp.data.api.SpaceXAPIService
 import com.devpass.spaceapp.repository.FetchLaunchesRepository
 import com.devpass.spaceapp.data.api.*
-import com.devpass.spaceapp.repository.FetchLaunchesRepository
 
 private const val NUMBER_ROCKETS = 20
 
