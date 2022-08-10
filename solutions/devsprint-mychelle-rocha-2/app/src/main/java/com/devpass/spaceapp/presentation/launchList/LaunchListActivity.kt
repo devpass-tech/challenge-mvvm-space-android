@@ -1,15 +1,20 @@
 package com.devpass.spaceapp.presentation.launchList
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devpass.spaceapp.databinding.ActivityLaunchListBinding
 import com.devpass.spaceapp.R
+import com.devpass.spaceapp.data.api.NextLaunchesModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LaunchListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLaunchListBinding
 
     private lateinit var adapter: LaunchListAdapter
+    private val viewModel: LaunchListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,19 +22,24 @@ class LaunchListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupRecycleView()
-        initLaunchList()
+        observerLaunchList()
+        viewModel.fetchNextLaunches()
     }
 
-    private fun initLaunchList() {
-
-        val launch1 = LaunchModel("Launch 1","1", "July 03, 2020", "Success", R.drawable.crs)
-        val launch2 = LaunchModel("Launch 2","2", "July 03, 2020", "Success", R.drawable.falcon_sat)
-        val launch3 = LaunchModel("Launch 3","3", "July 03, 2020", "Success", R.drawable.starlink)
-        val launch4 = LaunchModel("Launch 4","4", "July 03, 2020", "Success", R.drawable.spacex_dragon_crs20_patch01)
-        val launch5 = LaunchModel("Launch 5","5", "July 03, 2020", "Success", R.drawable.starlink)
-
-        var launchList: List<LaunchModel> = listOf(launch1, launch2, launch3, launch4, launch5)
-        adapter.submitList(launchList)
+    private fun observerLaunchList(){
+        viewModel.nextLaunchesLiveData.observe(this){ state ->
+            when(state){
+                is StateView.Loading -> {
+                    binding.pbLaunches.isVisible = state.isLoading
+                }
+                is StateView.Success -> {
+                    adapter.submitList(state.data.nextLaunchModel)
+                }
+                is StateView.Empty -> {}
+                is StateView.Error -> {
+                    Log.i("Falha", "Error"+state)}
+            }
+        }
     }
 
     private fun setupRecycleView() {
