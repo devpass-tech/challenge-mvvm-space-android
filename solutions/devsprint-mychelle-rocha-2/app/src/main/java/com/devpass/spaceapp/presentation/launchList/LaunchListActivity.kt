@@ -1,14 +1,10 @@
 package com.devpass.spaceapp.presentation.launchList
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devpass.spaceapp.databinding.ActivityLaunchListBinding
-import com.devpass.spaceapp.R
-import com.devpass.spaceapp.data.api.NextLaunchesModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LaunchListActivity : AppCompatActivity() {
@@ -28,10 +24,10 @@ class LaunchListActivity : AppCompatActivity() {
         viewModel.fetchNextLaunches()
     }
 
-    private fun observerLaunchList(){
-        viewModel.nextLaunchesLiveData.observe(this){ state ->
+    private fun observerLaunchList() {
+        viewModel.nextLaunchesLiveData.observe(this) { state ->
             binding.pbLaunches.isVisible = state.isLoading
-            when(state){
+            when (state) {
                 is StateView.Success -> {
                     adapter.submitList(state.data.nextLaunchModel)
                 }
@@ -46,7 +42,7 @@ class LaunchListActivity : AppCompatActivity() {
     }
 
     //Método para utilizar State com Data Class - colocar este método em OnCreate
-    private fun observerLaunchListData(){
+    private fun observerLaunchListData() {
         viewModel.nextLaunchesDataLiveData.observe(this) { state ->
             binding.pbLaunches.isVisible = state.loading
             if (state.success) adapter.submitList(state.nextLaunchesModel?.nextLaunchModel)
