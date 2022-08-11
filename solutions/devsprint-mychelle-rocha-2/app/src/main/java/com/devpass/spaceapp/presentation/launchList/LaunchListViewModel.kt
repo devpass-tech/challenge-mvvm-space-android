@@ -13,11 +13,11 @@ import kotlinx.coroutines.launch
 class LaunchListViewModel(private val repository: FetchLaunchesRepository) : ViewModel() {
 
     val nextLaunchesLiveData = MutableLiveData<StateView<NextLaunchesModel>>()
-    //val stateLiveData: LiveData<StateView<NextLaunchesModel>> = nextLaunchesLiveData
+    val nextLaunchesDataLiveData = MutableLiveData(StateViewData())
 
     fun fetchNextLaunches() {
         nextLaunchesLiveData.value = StateView.Loading()
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (val result = repository.fetchLaunches()) {
                 is Results.Success -> {
                     if (result.data.nextLaunchModel.isNullOrEmpty()) {
@@ -28,6 +28,25 @@ class LaunchListViewModel(private val repository: FetchLaunchesRepository) : Vie
                 }
                 is Results.Error -> {
                     nextLaunchesLiveData.value = StateView.Error()
+                }
+            }
+        }
+    }
+
+    //Método para utilizar State através do Data Class
+    fun fetchNextLaunchesData() {
+        nextLaunchesDataLiveData.value = StateViewData().setLoading()
+        viewModelScope.launch {
+            when (val result = repository.fetchLaunches()) {
+                is Results.Success -> {
+                    if (result.data.nextLaunchModel.isNullOrEmpty()) {
+                        nextLaunchesDataLiveData.value = StateViewData().setEmpty()
+                    } else {
+                        nextLaunchesDataLiveData.value = StateViewData().setSuccess(result.data)
+                    }
+                }
+                is Results.Error -> {
+                    nextLaunchesDataLiveData.value = StateViewData().setError()
                 }
             }
         }

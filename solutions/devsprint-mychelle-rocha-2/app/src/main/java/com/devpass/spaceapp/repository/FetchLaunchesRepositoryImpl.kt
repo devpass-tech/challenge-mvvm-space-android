@@ -6,9 +6,7 @@ private const val NUMBER_ROCKETS = 20
 class FetchLaunchesRepositoryImpl(private val api: SpaceXAPIService) : FetchLaunchesRepository {
     override suspend fun fetchLaunches(): Results<NextLaunchesModel> {
         return try {
-            val requestParams = QueryRequestParams(OptionsRequest(NUMBER_ROCKETS))
-            val resultResponse = api.fetchNextLaunches(requestParams)
-            Results.Success(resultResponse)
+            Results.Success(api.fetchNextLaunches(getParams()))
         } catch (exception: Exception) {
             Results.Error(exception)
         }
