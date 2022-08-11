@@ -13,6 +13,5 @@ import retrofit2.create
 val spaceModules = module{
     factory<FetchLaunchesRepository>{FetchLaunchesRepositoryImpl(get())}
     factory { get<Retrofit>().create(SpaceXAPIService::class.java) }
-    //factory{NetworkModule.create()}
     viewModel{LaunchListViewModel(get())}
 }

@@ -13,6 +13,7 @@ class LaunchListViewModel(private val repository: FetchLaunchesRepository) : Vie
     val nextLaunchesLiveData = MutableLiveData<StateView<NextLaunchesModel>>()
     val nextLaunchesDataLiveData = MutableLiveData(StateViewData())
 
+    //Método usando State como sealed class
     fun fetchNextLaunches() {
         nextLaunchesLiveData.value = StateView.Loading()
         viewModelScope.launch {
@@ -31,7 +32,7 @@ class LaunchListViewModel(private val repository: FetchLaunchesRepository) : Vie
         }
     }
 
-    //Método para utilizar State através do Data Class
+    //Método usando State com data class
     fun fetchNextLaunchesData() {
         nextLaunchesDataLiveData.value = StateViewData().setLoading()
         viewModelScope.launch {
