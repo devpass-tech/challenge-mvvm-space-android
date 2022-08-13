@@ -1,5 +1,6 @@
 package com.devpass.spaceapp.data.api
 
+import com.devpass.spaceapp.model.LaunchDetails
 import com.devpass.spaceapp.model.Launchpad
 import com.devpass.spaceapp.model.Rocket
 import retrofit2.http.Body
@@ -17,4 +18,7 @@ interface SpaceXAPIService {
 
     @GET("v4/launchpads/{id}")
     suspend fun fetchLaunchpadDetails(@Path("id") id: String): Launchpad
+
+    @GET("v5/launches/next")
+    suspend fun fetchLaunchDetails(@Path("id") id: String): LaunchDetails
 }

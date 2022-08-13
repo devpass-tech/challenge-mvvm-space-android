@@ -5,7 +5,7 @@ import java.io.Serializable
 
 data class NextLaunchesModel(
     @SerializedName("docs")
-    val docs: List<NextLaunchModel>?
+    val nextLaunchModel: List<NextLaunchModel>
 ) : Serializable
 
 data class NextLaunchModel(
