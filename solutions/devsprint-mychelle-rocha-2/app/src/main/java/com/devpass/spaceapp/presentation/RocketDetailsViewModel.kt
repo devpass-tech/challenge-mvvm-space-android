@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devpass.spaceapp.data.api.Results
 import com.devpass.spaceapp.model.Rocket
+import com.devpass.spaceapp.presentation.launchList.StateViewData
 import com.devpass.spaceapp.repository.FetchRocketRepository
 import kotlinx.coroutines.launch
 
@@ -12,21 +13,22 @@ class RocketDetailsViewModel(
     private val launchRepository: FetchRocketRepository
 ) : ViewModel() {
 
-    private val resultRocketLiveData = MutableLiveData<Rocket>()
-    private val resultRocketErrorLiveData = MutableLiveData<Throwable>()
+    private val resultRocketLiveData = MutableLiveData<StateClassView<Rocket>>()
+    private val resultRocketErrorLiveData =MutableLiveData(StateViewData())
 
-    fun fetchRocket(id: String) {
+    fun fetchRocketLauches(id: String) {
+        resultRocketLiveData.value = StateClassView.Loading()
         viewModelScope.launch {
-            val resultRocket = launchRepository.getRocket(id)
-
-            when (resultRocket) {
+            when (val result = launchRepository.getRocket(id)) {
                 is Results.Success -> {
-                    resultRocket.data.let {
-                        resultRocketLiveData.value = it
+                    if (result.data.description.isNullOrEmpty()) {
+                        resultRocketLiveData.value = StateClassView.Loading()
+                    } else {
+                        resultRocketLiveData.value = StateClassView.Success(result.data)
                     }
                 }
                 is Results.Error -> {
-                    resultRocketErrorLiveData.value = Throwable()
+                    resultRocketLiveData.value = StateClassView.Error()
                 }
             }
         }

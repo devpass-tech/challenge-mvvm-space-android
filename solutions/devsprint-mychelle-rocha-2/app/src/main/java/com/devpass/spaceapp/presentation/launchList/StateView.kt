@@ -2,7 +2,6 @@ package com.devpass.spaceapp.presentation.launchList
 
 import com.devpass.spaceapp.data.api.NextLaunchesModel
 
-
 sealed class StateView<T>(val isLoading: Boolean = false) {
     class Loading<T> : StateView<T>(true)
     class Success<T>(val data: T) : StateView<T>()
@@ -49,5 +48,4 @@ data class StateViewData(
         error = true,
         nextLaunchesModel = null
     )
-
 }
