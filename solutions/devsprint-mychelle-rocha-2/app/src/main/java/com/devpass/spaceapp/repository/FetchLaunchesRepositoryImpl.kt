@@ -1,4 +1,8 @@
-import com.devpass.spaceapp.data.api.*
+import com.devpass.spaceapp.data.api.NextLaunchesModel
+import com.devpass.spaceapp.data.api.OptionsRequest
+import com.devpass.spaceapp.data.api.QueryRequestParams
+import com.devpass.spaceapp.data.api.SpaceXAPIService
+import com.devpass.spaceapp.data.api.Results
 import com.devpass.spaceapp.repository.FetchLaunchesRepository
 
 private const val NUMBER_ROCKETS = 91
