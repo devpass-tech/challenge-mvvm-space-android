@@ -5,23 +5,9 @@ import android.os.Bundle
 import com.devpass.spaceapp.databinding.ActivityTabBinding
 
 class LaunchActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityTabBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        binding = ActivityTabBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val fragments = listOf(FragmentDetails(), RocketFragment(), FragmentLaunchpad())
-        val fragmentsPageTitle = listOf("Details", "Rocket", "Launchpad")
-        val viewPagerAdapter = ViewPagerAdapter(
-            fragments = fragments,
-            fragmentManager = supportFragmentManager,
-            tittles = fragmentsPageTitle
-        )
-
-        binding.viewPager.adapter = viewPagerAdapter
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 }
