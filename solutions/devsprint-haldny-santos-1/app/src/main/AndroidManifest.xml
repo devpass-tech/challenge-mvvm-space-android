@@ -14,9 +14,11 @@
         android:theme="@style/Theme.SpaceApp">
 
 
+
 <!--        <meta-data-->
 <!--            android:name="com.google.android.geo.API_KEY"-->
 <!--            android:value="${apiKey}"/>-->
+
 
 
         <activity
@@ -30,8 +32,8 @@
         </activity>
         <activity android:name=".presentation.LaunchActivity"/>
 
-        <activity android:name=".presentation.LaunchDetailsActivity"/>
 
+        <activity android:name=".presentation.LaunchDetailsActivity"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
