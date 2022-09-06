@@ -18,7 +18,7 @@ class FragmentDetails : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        binding!!.tvViewMore.setOnClickListener {
+        binding?.tvViewMore?.setOnClickListener {
             val intent = Intent(context, LaunchDetailsActivity::class.java)
             startActivity(intent)
         }
