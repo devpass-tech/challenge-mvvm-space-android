@@ -23,5 +23,6 @@ class LaunchActivity : AppCompatActivity() {
 
         binding.viewPager.adapter = viewPagerAdapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.btRunBack.setOnClickListener { onBackPressed() }
     }
 }
