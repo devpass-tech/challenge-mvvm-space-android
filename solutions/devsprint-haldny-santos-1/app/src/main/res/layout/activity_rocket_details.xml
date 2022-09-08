@@ -17,15 +17,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageButton
+            android:id="@+id/tbRocketDetailsBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_outline_arrow_back_24"
             android:background="?selectableItemBackgroundBorderless"/>
 
         <TextView
+            android:id="@+id/tbRocketDetailsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mock_falcon_heavy"
+            tools:text="@string/mock_falcon_heavy"
             android:textSize="@dimen/rocket_details_text_size"
             android:textStyle="bold"
             android:layout_gravity="center"/>
@@ -48,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/rocket_details_margin_start"
         android:layout_marginTop="@dimen/rocket_detail_margin_top2"
-        android:text="@string/mock_falcon_heavy"
+        tools:text="@string/mock_falcon_heavy"
         android:textColor="@color/black"
         android:textSize="@dimen/rocket_details_text_size"
         android:textStyle="bold"
@@ -62,7 +64,7 @@
         android:layout_marginTop="@dimen/rocket_detail_margin_top"
         android:layout_marginStart="@dimen/rocket_details_margin_start_2"
         android:layout_marginEnd="@dimen/rocket_detail_margin_end"
-        android:text="@string/mock_rocket_detail"
+        tools:text="@string/mock_rocket_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameRocketDetails" />
