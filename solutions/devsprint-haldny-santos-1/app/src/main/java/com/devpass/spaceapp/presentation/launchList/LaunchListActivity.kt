@@ -1,10 +1,13 @@
 package com.devpass.spaceapp.presentation.launchList
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devpass.spaceapp.databinding.ActivityLaunchListBinding
 import com.devpass.spaceapp.R
+import com.devpass.spaceapp.presentation.LaunchActivity
 
 class LaunchListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLaunchListBinding
@@ -33,8 +36,15 @@ class LaunchListActivity : AppCompatActivity() {
     }
 
     private fun setupRecycleView() {
-        adapter = LaunchListAdapter()
+        adapter = LaunchListAdapter {
+            Log.i(TAG, "on click $it")
+            startActivity(Intent(baseContext, LaunchActivity::class.java))
+        }
         binding.rvLaunches.adapter = adapter
         binding.rvLaunches.layoutManager = LinearLayoutManager(this)
+    }
+
+    companion object {
+        const val TAG = "LaunchListActivity"
     }
 }
