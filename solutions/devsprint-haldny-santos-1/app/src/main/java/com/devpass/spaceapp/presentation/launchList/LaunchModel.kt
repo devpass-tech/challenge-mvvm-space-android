@@ -7,7 +7,7 @@ data class LaunchModel(
     val number: String,
     var date: String,
     val status: String,
-    val image: Int
+    val image: String
     ) {
     companion object : DiffUtil.ItemCallback<LaunchModel>() {
         override fun areItemsTheSame(oldItem: LaunchModel, newItem: LaunchModel): Boolean {

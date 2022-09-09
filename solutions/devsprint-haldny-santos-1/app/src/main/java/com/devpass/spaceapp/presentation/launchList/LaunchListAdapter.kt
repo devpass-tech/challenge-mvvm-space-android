@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.devpass.spaceapp.R
 import com.devpass.spaceapp.databinding.ListItemBinding
 
 class LaunchListAdapter(private val onItemClick: (LaunchModel) -> Unit) : ListAdapter<LaunchModel, LaunchViewHolder>(LaunchModel) {
@@ -17,7 +19,7 @@ class LaunchListAdapter(private val onItemClick: (LaunchModel) -> Unit) : ListAd
     }
 }
 
-class LaunchViewHolder(binding: ListItemBinding, private val onItemClick: (LaunchModel) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+class LaunchViewHolder(private val binding: ListItemBinding, private val onItemClick: (LaunchModel) -> Unit) : RecyclerView.ViewHolder(binding.root) {
     private val imageLaunch = binding.ivLogo
     private val numberLaunch = binding.tvNumber
     private val nameLaunch = binding.tvName
@@ -34,7 +36,15 @@ class LaunchViewHolder(binding: ListItemBinding, private val onItemClick: (Launc
 
     fun bind(model: LaunchModel) {
         this.model = model
-        imageLaunch.setImageResource(model.image)
+
+        Glide
+            .with(binding.root.context)
+            .load(model.image)
+            .placeholder(R.drawable.crs)
+            .circleCrop()
+            .into(imageLaunch)
+
+
         numberLaunch.text = model.number
         nameLaunch.text = model.name
         dateLaunch.text = model.date
