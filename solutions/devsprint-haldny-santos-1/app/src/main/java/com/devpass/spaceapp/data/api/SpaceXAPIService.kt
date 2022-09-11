@@ -14,7 +14,7 @@ interface SpaceXAPIService {
     @POST("v5/launches/query")
     suspend fun fetchNextLaunches(@Body params: QueryParams): LaunchesPageResponse
 
-    @GET("rockets/{id}")
+    @GET("v4/rockets/{id}")
     fun fetchRocketDetails(@Path("id") id: String): Call<RocketDetailResponse>
 
 }

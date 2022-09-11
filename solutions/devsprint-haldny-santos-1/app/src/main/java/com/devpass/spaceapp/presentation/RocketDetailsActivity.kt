@@ -2,8 +2,10 @@ package com.devpass.spaceapp.presentation
 
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.devpass.spaceapp.R
 import com.devpass.spaceapp.data.api.NetworkService
 import com.devpass.spaceapp.data.api.SpaceXAPIService
 import com.devpass.spaceapp.data.api.response.RocketDetailResponse
@@ -26,6 +28,10 @@ class RocketDetailsActivity : AppCompatActivity() {
 
         api = NetworkService.getSpaceXAPI()
 
+        binding.tbRocketDetailsBackButton.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     override fun onResume() {
@@ -44,9 +50,6 @@ class RocketDetailsActivity : AppCompatActivity() {
                     .placeholder(android.R.color.transparent)
                     .into(imageViewRocketDetails)
             }
-            tbRocketDetailsBackButton.setOnClickListener {
-                onBackPressed()
-            }
         }
     }
 
@@ -55,7 +58,11 @@ class RocketDetailsActivity : AppCompatActivity() {
         val callback = api.fetchRocketDetails(id)
         callback.enqueue(object : Callback<RocketDetailResponse> {
             override fun onFailure(call: Call<RocketDetailResponse>, t: Throwable) {
-                Log.e(TAG, "getData", t)
+                t.message?.let {
+                    showDialogErrorMessage(it)
+                }.also {
+                    showDialogErrorMessage(getString(R.string.rocket_details_dialog_error_message))
+                }
             }
 
             override fun onResponse(
@@ -67,6 +74,16 @@ class RocketDetailsActivity : AppCompatActivity() {
                 updateUI()
             }
         })
+    }
+
+    private fun showDialogErrorMessage(error: String) {
+        AlertDialog.Builder(baseContext)
+            .setTitle(R.string.rocket_details_dialog_error_title)
+            .setMessage(error)
+            .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .show()
     }
 
     companion object {
