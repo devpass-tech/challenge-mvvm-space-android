@@ -49,6 +49,7 @@ class RocketDetailsActivity : AppCompatActivity() {
                     .load(it)
                     .placeholder(android.R.color.transparent)
                     .into(imageViewRocketDetails)
+
             }
         }
     }
@@ -63,6 +64,7 @@ class RocketDetailsActivity : AppCompatActivity() {
                 }.also {
                     showDialogErrorMessage(getString(R.string.rocket_details_dialog_error_message))
                 }
+                Log.e(TAG, "getData", t)
             }
 
             override fun onResponse(

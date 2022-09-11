@@ -18,3 +18,4 @@ interface SpaceXAPIService {
     fun fetchRocketDetails(@Path("id") id: String): Call<RocketDetailResponse>
 
 }
+
