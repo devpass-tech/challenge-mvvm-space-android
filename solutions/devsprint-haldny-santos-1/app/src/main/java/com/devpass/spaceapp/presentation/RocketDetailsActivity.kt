@@ -48,13 +48,11 @@ class RocketDetailsActivity : AppCompatActivity() {
                 tbRocketDetailsTitle.text = model.name
                 textViewNameRocketDetails.text = model.name
                 textViewDetailsRocketDetails.text = model.description
-                model.flickrImages.firstOrNull()?.let {
-                    Glide.with(baseContext)
-                        .load(it)
-                        .placeholder(android.R.color.transparent)
-                        .into(imageViewRocketDetails)
+                Glide.with(baseContext)
+                    .load(model.image)
+                    .placeholder(android.R.color.transparent)
+                    .into(imageViewRocketDetails)
 
-                }
             }
         }
     }

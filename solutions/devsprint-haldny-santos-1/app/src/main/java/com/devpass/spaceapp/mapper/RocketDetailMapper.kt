@@ -8,6 +8,6 @@ fun RocketDetailResponse.toModel(): RocketDetail {
         id = id,
         name = name,
         description = description,
-        flickrImages = flickrImages
+        image = flickrImages.firstOrNull() ?: ""
     )
 }
