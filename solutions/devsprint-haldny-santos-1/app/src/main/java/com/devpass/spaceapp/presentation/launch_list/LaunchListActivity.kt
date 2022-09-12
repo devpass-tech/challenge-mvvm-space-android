@@ -25,11 +25,11 @@ class LaunchListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupRecycleView()
-        initLaunchList()
+        observeLaunchList()
 
     }
 
-    private fun initLaunchList() {
+    private fun observeLaunchList() {
 
         viewModel.launches.observe(this, Observer {
             adapter.submitList(it)
