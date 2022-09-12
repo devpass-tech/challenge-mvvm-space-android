@@ -1,6 +1,6 @@
 package com.devpass.spaceapp.repository
 
-import com.devpass.spaceapp.presentation.launchList.LaunchModel
+import com.devpass.spaceapp.presentation.launch_list.LaunchModel
 
 interface FetchLaunchesRepository {
 
