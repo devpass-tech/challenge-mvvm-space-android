@@ -1,52 +1,51 @@
 package com.devpass.spaceapp.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.devpass.spaceapp.R
-import com.devpass.spaceapp.data.api.NetworkService
-import com.devpass.spaceapp.data.api.SpaceXAPIService
-import com.devpass.spaceapp.data.api.response.RocketDetailResponse
 import com.devpass.spaceapp.databinding.ActivityRocketDetailsBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.devpass.spaceapp.model.RocketDetail
+import com.devpass.spaceapp.repository.RocketDetailRepository
+import com.devpass.spaceapp.repository.RocketDetailRepositoryImpl
+import kotlinx.coroutines.launch
 
 class RocketDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRocketDetailsBinding
 
-    private lateinit var api: SpaceXAPIService
-    private lateinit var rocketDetail: RocketDetailResponse
+    private lateinit var rocketDetailRepository: RocketDetailRepository
+    private var rocketDetail: RocketDetail? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRocketDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        api = NetworkService.getSpaceXAPI()
+        rocketDetailRepository = RocketDetailRepositoryImpl()
 
         binding.tbRocketDetailsBackButton.setOnClickListener {
             onBackPressed()
         }
-
     }
 
     override fun onResume() {
         super.onResume()
-        getData()
+        lifecycleScope.launch {
+            getData()
+        }
     }
 
     private fun updateUI() {
-        with(binding) {
-            tbRocketDetailsTitle.text = rocketDetail.name
-            textViewNameRocketDetails.text = rocketDetail.name
-            textViewDetailsRocketDetails.text = rocketDetail.description
-            rocketDetail.flickrImages.firstOrNull()?.let {
+        rocketDetail?.let { model ->
+            with(binding) {
+                tbRocketDetailsTitle.text = model.name
+                textViewNameRocketDetails.text = model.name
+                textViewDetailsRocketDetails.text = model.description
                 Glide.with(baseContext)
-                    .load(it)
+                    .load(model.image)
                     .placeholder(android.R.color.transparent)
                     .into(imageViewRocketDetails)
 
@@ -54,28 +53,18 @@ class RocketDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun getData() {
-        val id = "5e9d0d96eda699382d09d1ee"
-        val callback = api.fetchRocketDetails(id)
-        callback.enqueue(object : Callback<RocketDetailResponse> {
-            override fun onFailure(call: Call<RocketDetailResponse>, t: Throwable) {
-                t.message?.let {
-                    showDialogErrorMessage(it)
-                }.also {
-                    showDialogErrorMessage(getString(R.string.rocket_details_dialog_error_message))
-                }
-                Log.e(TAG, "getData", t)
+    private suspend fun getData() {
+        try {
+            val id = "5e9d0d96eda699382d09d1ee"
+            rocketDetail = rocketDetailRepository.fetchRocketDetail(id)
+            updateUI()
+        } catch (e: Exception) {
+            e.message?.let {
+                showDialogErrorMessage(it)
+            }.also {
+                showDialogErrorMessage(getString(R.string.rocket_details_dialog_error_message))
             }
-
-            override fun onResponse(
-                call: Call<RocketDetailResponse>,
-                response: Response<RocketDetailResponse>
-            ) {
-                Log.i(TAG, response.body().toString())
-                rocketDetail = response.body()!!
-                updateUI()
-            }
-        })
+        }
     }
 
     private fun showDialogErrorMessage(error: String) {
@@ -86,10 +75,6 @@ class RocketDetailsActivity : AppCompatActivity() {
                 dialogInterface.dismiss()
             }
             .show()
-    }
-
-    companion object {
-        const val TAG = "RocketDetailsActivity"
     }
 
 }
