@@ -3,7 +3,7 @@ package com.devpass.spaceapp.repository
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.devpass.spaceapp.data.api.response.LaunchesResponse
-import com.devpass.spaceapp.presentation.launchList.LaunchModel
+import com.devpass.spaceapp.presentation.launch_list.LaunchModel
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
