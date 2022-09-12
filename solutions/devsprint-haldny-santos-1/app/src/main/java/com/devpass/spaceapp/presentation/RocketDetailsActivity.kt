@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.devpass.spaceapp.R
-import com.devpass.spaceapp.data.api.NetworkService
-import com.devpass.spaceapp.data.api.SpaceXAPIService
 import com.devpass.spaceapp.databinding.ActivityRocketDetailsBinding
 import com.devpass.spaceapp.model.RocketDetail
 import com.devpass.spaceapp.repository.RocketDetailRepository
@@ -18,7 +16,6 @@ class RocketDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRocketDetailsBinding
 
-    private lateinit var api: SpaceXAPIService
     private lateinit var rocketDetailRepository: RocketDetailRepository
     private var rocketDetail: RocketDetail? = null
 
@@ -27,8 +24,7 @@ class RocketDetailsActivity : AppCompatActivity() {
         binding = ActivityRocketDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        api = NetworkService.getSpaceXAPI()
-        rocketDetailRepository = RocketDetailRepositoryImpl(api)
+        rocketDetailRepository = RocketDetailRepositoryImpl()
 
         binding.tbRocketDetailsBackButton.setOnClickListener {
             onBackPressed()
