@@ -42,3 +42,4 @@ class LaunchActivity : AppCompatActivity() {
         private const val LAUNCH_MODEL = "LAUNCH_MODEL"
     }
 }
+
