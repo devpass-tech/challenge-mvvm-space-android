@@ -39,7 +39,9 @@ class LaunchListActivity : AppCompatActivity() {
     private fun setupRecycleView() {
         adapter = LaunchListAdapter {
             Log.i(TAG, "on click $it")
-            startActivity(Intent(baseContext, LaunchActivity::class.java))
+            startActivity(Intent(baseContext, LaunchActivity::class.java).also { i ->
+                i.putExtra(LAUNCH_MODEL, it)
+            })
         }
         binding.rvLaunches.adapter = adapter
         binding.rvLaunches.layoutManager = LinearLayoutManager(this)
@@ -47,5 +49,6 @@ class LaunchListActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "LaunchListActivity"
+        private const val LAUNCH_MODEL = "LAUNCH_MODEL"
     }
 }
