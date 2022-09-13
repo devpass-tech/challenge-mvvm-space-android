@@ -3,6 +3,7 @@ package com.devpass.spaceapp.presentation.launch_list
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -26,6 +27,7 @@ class LaunchListActivity : AppCompatActivity() {
 
         setupRecycleView()
         observeLaunchList()
+        removeBackButton()
 
     }
 
@@ -43,6 +45,10 @@ class LaunchListActivity : AppCompatActivity() {
         }
         binding.rvLaunches.adapter = adapter
         binding.rvLaunches.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun removeBackButton(){
+        binding.includeToolbar.back.visibility = View.GONE
     }
 
     companion object {
