@@ -41,4 +41,5 @@ class LaunchActivity : AppCompatActivity() {
     companion object {
         private const val LAUNCH_MODEL = "LAUNCH_MODEL"
     }
+
 }
