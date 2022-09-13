@@ -1,4 +1,4 @@
-package com.devpass.spaceapp.presentation
+package com.devpass.spaceapp.presentation.launchDetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,5 +13,4 @@ class LaunchDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch_details)
     }
-
 }

@@ -5,7 +5,7 @@ import com.devpass.spaceapp.data.api.SpaceXAPIService
 import com.devpass.spaceapp.data.api.Results
 import com.devpass.spaceapp.repository.FetchLaunchesRepository
 
-private const val NUMBER_ROCKETS = 20
+private const val NUMBER_ROCKETS = 91
 
 class FetchLaunchesRepositoryImpl(private val api: SpaceXAPIService) : FetchLaunchesRepository {
     override suspend fun fetchLaunches(): Results<NextLaunchesModel> {
