@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.devpass.spaceapp.databinding.FragmentRocketBinding
+import com.devpass.spaceapp.presentation.rocket_detail.RocketDetailsActivity
 
 class RocketFragment : Fragment() {
 
