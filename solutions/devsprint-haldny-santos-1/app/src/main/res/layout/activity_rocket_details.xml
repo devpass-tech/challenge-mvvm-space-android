@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.RocketDetailsActivity">
+    tools:context=".presentation.rocket_detail.RocketDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbRocketDetails"
         android:layout_width="@dimen/rocket_details_0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:background="@color/color_background_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,8 +18,8 @@
             android:id="@+id/tbRocketDetailsBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_outline_arrow_back_24"
-            android:background="?selectableItemBackgroundBorderless"/>
+            android:backgroundTint="@color/color_background_toolbar"
+            android:src="@drawable/ic_back_24"/>
 
         <TextView
             android:id="@+id/tbRocketDetailsTitle"
@@ -29,6 +27,7 @@
             android:layout_height="wrap_content"
             tools:text="@string/mock_falcon_heavy"
             android:textSize="@dimen/rocket_details_text_size"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_gravity="center"/>
     </androidx.appcompat.widget.Toolbar>

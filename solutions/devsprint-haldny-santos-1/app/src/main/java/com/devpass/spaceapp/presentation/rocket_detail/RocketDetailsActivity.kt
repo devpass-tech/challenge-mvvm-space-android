@@ -1,6 +1,7 @@
-package com.devpass.spaceapp.presentation
+package com.devpass.spaceapp.presentation.rocket_detail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -8,15 +9,13 @@ import com.bumptech.glide.Glide
 import com.devpass.spaceapp.R
 import com.devpass.spaceapp.databinding.ActivityRocketDetailsBinding
 import com.devpass.spaceapp.model.RocketDetail
-import com.devpass.spaceapp.repository.RocketDetailRepository
-import com.devpass.spaceapp.repository.RocketDetailRepositoryImpl
-import kotlinx.coroutines.launch
 
 class RocketDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRocketDetailsBinding
 
-    private lateinit var rocketDetailRepository: RocketDetailRepository
+    private val viewModel: RocketDetailsViewModel by viewModels()
+
     private var rocketDetail: RocketDetail? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,19 +23,18 @@ class RocketDetailsActivity : AppCompatActivity() {
         binding = ActivityRocketDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        rocketDetailRepository = RocketDetailRepositoryImpl()
-
         binding.tbRocketDetailsBackButton.setOnClickListener {
             onBackPressed()
         }
+
+        lifecycleScope.launchWhenResumed {
+            val id = "5e9d0d96eda699382d09d1ee"
+            viewModel.loadRocketDetails(id)
+        }
+
+        renderRocketDetail()
     }
 
-    override fun onResume() {
-        super.onResume()
-        lifecycleScope.launch {
-            getData()
-        }
-    }
 
     private fun updateUI() {
         rocketDetail?.let { model ->
@@ -53,28 +51,25 @@ class RocketDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun getData() {
-        try {
-            val id = "5e9d0d96eda699382d09d1ee"
-            rocketDetail = rocketDetailRepository.fetchRocketDetail(id)
-            updateUI()
-        } catch (e: Exception) {
-            e.message?.let {
-                showDialogErrorMessage(it)
-            }.also {
-                showDialogErrorMessage(getString(R.string.rocket_details_dialog_error_message))
-            }
-        }
-    }
-
-    private fun showDialogErrorMessage(error: String) {
+    private fun showDialogErrorMessage() {
         AlertDialog.Builder(baseContext)
             .setTitle(R.string.rocket_details_dialog_error_title)
-            .setMessage(error)
+            .setMessage(R.string.rocket_details_dialog_error_message)
             .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
                 dialogInterface.dismiss()
+            }.show()
+    }
+
+    private fun renderRocketDetail() {
+        viewModel.rocketDetailsData.observe(this) {
+            it.data?.let { model ->
+                rocketDetail = model
+                updateUI()
             }
-            .show()
+            if (it.showError) {
+                showDialogErrorMessage()
+            }
+        }
     }
 
 }
