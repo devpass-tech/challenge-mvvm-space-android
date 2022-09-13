@@ -1,12 +1,15 @@
 package com.devpass.spaceapp.presentation.launch_list
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.devpass.spaceapp.R
 import com.devpass.spaceapp.databinding.ActivityLaunchListBinding
 import com.devpass.spaceapp.presentation.LaunchActivity
 import com.devpass.spaceapp.presentation.view_model.LaunchListViewModel
@@ -24,9 +27,18 @@ class LaunchListActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        setupTitle()
         setupRecycleView()
         observeLaunchList()
 
+    }
+
+    private fun setupTitle() {
+        with(binding.includeToolbar) {
+            tvToolbarTitle.setText(R.string.title_toolbar_launch_list_activity)
+            tvToolbarTitle.setTypeface(null, Typeface.BOLD)
+            back.visibility = View.GONE
+        }
     }
 
     private fun observeLaunchList() {
