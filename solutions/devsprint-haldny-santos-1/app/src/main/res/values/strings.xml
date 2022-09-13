@@ -30,5 +30,6 @@
     <string name="text_card_rocket">With the ability to lift into orbit over 54 metric tons (119,000 lb)--a mass equivalent to a 737 jetliner loaded...</string>
     <string name="rocket_details_dialog_error_title">Aviso!</string>
     <string name="rocket_details_dialog_error_message">Error ao sincronizar detalhe do foguete.</string>
+    <string name="title_toolbar_launch_list_activity">Space App 🚀</string>
 
 </resources>
