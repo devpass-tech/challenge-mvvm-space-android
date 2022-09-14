@@ -7,25 +7,46 @@ import androidx.lifecycle.viewModelScope
 import com.devpass.spaceapp.presentation.launch_list.LaunchModel
 import com.devpass.spaceapp.repository.FetchLaunchesRepository
 import com.devpass.spaceapp.repository.FetchLaunchesRepositoryImpl
+import com.devpass.spaceapp.utils.NetworkResult
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LaunchListViewModel(
-    val repository: FetchLaunchesRepository = FetchLaunchesRepositoryImpl()
+    val repository: FetchLaunchesRepository = FetchLaunchesRepositoryImpl(),
 ) : ViewModel() {
 
-    private val _launches: MutableLiveData<List<LaunchModel>> = MutableLiveData()
-    val launches: LiveData<List<LaunchModel>> = _launches
+    private val _launches: MutableLiveData<LaunchListUIState> = MutableLiveData()
+    val launches: LiveData<LaunchListUIState> = _launches
 
     init {
         getLaunches()
     }
 
-    private fun getLaunches() = viewModelScope.launch {
+    fun getLaunches() = viewModelScope.launch {
         safeLaunchesCall()
     }
 
     private suspend fun safeLaunchesCall() {
-        val response = repository.fetchLaunches()
-        _launches.postValue(response)
+        _launches.postValue(LaunchListUIState.Loading)
+        delay(3000)
+
+        runCatching {
+            repository.fetchLaunches()
+        }.onSuccess {
+            if (it is NetworkResult.Success) {
+                _launches.postValue(LaunchListUIState.Success(it.data))
+            }
+            if (it is NetworkResult.Error) {
+                _launches.postValue(LaunchListUIState.Error(it.exception))
+            }
+        }.onFailure {
+            _launches.postValue(LaunchListUIState.Error(it))
+        }
+    }
+
+    sealed interface LaunchListUIState {
+        object Loading : LaunchListUIState
+        data class Error(val error: Throwable) : LaunchListUIState
+        data class Success(val data: List<LaunchModel>) : LaunchListUIState
     }
 }
