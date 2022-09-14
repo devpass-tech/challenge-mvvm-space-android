@@ -31,5 +31,7 @@
     <string name="rocket_details_dialog_error_title">Aviso!</string>
     <string name="rocket_details_dialog_error_message">Error ao sincronizar detalhe do foguete.</string>
     <string name="title_toolbar_launch_list_activity">Space App 🚀</string>
+    <string name="retry">Try again</string>
+    <string name="error_message">Error</string>
 
 </resources>

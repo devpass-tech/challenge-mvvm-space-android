@@ -5,15 +5,23 @@ import com.devpass.spaceapp.data.api.SpaceXAPIService
 import com.devpass.spaceapp.data.api.response.OptionsRequest
 import com.devpass.spaceapp.data.api.response.QueryParams
 import com.devpass.spaceapp.presentation.launch_list.LaunchModel
+import com.devpass.spaceapp.utils.NetworkResult
 
 class FetchLaunchesRepositoryImpl(
     val api: SpaceXAPIService = NetworkService.getSpaceXAPI(),
     val mapper: LaunchModelMapper = LaunchModelMapperImpl()
 ) : FetchLaunchesRepository {
 
-    override suspend fun fetchLaunches(): List<LaunchModel> {
-        return api.fetchNextLaunches(QueryParams(OptionsRequest(20))).docs.map { response ->
-            mapper.transformToLaunchModel(response)
+    override suspend fun fetchLaunches(): NetworkResult {
+        return try {
+            val response = api.fetchNextLaunches(QueryParams(OptionsRequest(20))).docs
+            val launchList = response.map {
+                mapper.transformToLaunchModel(it)
+            }
+            NetworkResult.Success(data = launchList)
+        } catch (e: Exception) {
+            NetworkResult.Error(exception = e)
+            throw RuntimeException(e)
         }
     }
 }
