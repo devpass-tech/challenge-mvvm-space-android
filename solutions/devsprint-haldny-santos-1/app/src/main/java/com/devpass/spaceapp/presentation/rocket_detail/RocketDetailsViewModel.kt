@@ -22,12 +22,11 @@ class RocketDetailsViewModel(
 
     fun loadRocketDetails(id: String) {
         viewModelScope.launch {
-            val data: RocketDetail = rocketDetailRepository.fetchRocketDetail(id)
             runCatching {
-                _uiState.value = RocketDetailsUiState.Loading
                 delay(3000)
+                rocketDetailRepository.fetchRocketDetail(id)
             }.onSuccess {
-                _uiState.value = RocketDetailsUiState.Success(data)
+                _uiState.value = RocketDetailsUiState.Success(it)
             }.onFailure {
                 _uiState.value = RocketDetailsUiState.Error(it)
             }
