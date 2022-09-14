@@ -13,13 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceApp">
 
-
-
 <!--        <meta-data-->
 <!--            android:name="com.google.android.geo.API_KEY"-->
 <!--            android:value="${apiKey}"/>-->
-
-
 
         <activity
             android:name="com.devpass.spaceapp.presentation.launch_list.LaunchListActivity"
@@ -35,6 +31,7 @@
 
         <activity android:name=".presentation.LaunchDetailsActivity"/>
         <activity android:name=".presentation.rocket_detail.RocketDetailsActivity"/>
+        <activity android:name=".presentation.LaunchpadDetailsActivity"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
