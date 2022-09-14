@@ -7,35 +7,35 @@ import androidx.lifecycle.viewModelScope
 import com.devpass.spaceapp.model.RocketDetail
 import com.devpass.spaceapp.repository.RocketDetailRepository
 import com.devpass.spaceapp.repository.RocketDetailRepositoryImpl
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class RocketDetailsViewModel(
     private val rocketDetailRepository: RocketDetailRepository = RocketDetailRepositoryImpl()
 ) : ViewModel() {
-    private val _rocketDetailsData = MutableLiveData<RocketDetailsUiState>()
-    val rocketDetailsData: LiveData<RocketDetailsUiState> = _rocketDetailsData
+    private val _uiState = MutableLiveData<RocketDetailsUiState>()
+    val uiState: LiveData<RocketDetailsUiState> = _uiState
+
+    init {
+        RocketDetailsUiState.Loading
+    }
 
     fun loadRocketDetails(id: String) {
         viewModelScope.launch {
-            try {
-                val rocketDetail: RocketDetail = rocketDetailRepository.fetchRocketDetail(id)
-                _rocketDetailsData.value = RocketDetailsUiState(
-                    data = rocketDetail
-                )
-            } catch (exception: Exception) {
-                _rocketDetailsData.value = RocketDetailsUiState(
-                    error = exception
-                )
+            runCatching {
+                delay(3000)
+                rocketDetailRepository.fetchRocketDetail(id)
+            }.onSuccess {
+                _uiState.value = RocketDetailsUiState.Success(it)
+            }.onFailure {
+                _uiState.value = RocketDetailsUiState.Error(it)
             }
-
         }
     }
 }
 
-data class RocketDetailsUiState(
-    val data: RocketDetail? = null,
-    private val error: Exception? = null
-) {
-    val showError: Boolean
-        get() = error != null
+sealed interface RocketDetailsUiState {
+    data class Success(val data: RocketDetail?) : RocketDetailsUiState
+    data class Error(val exception: Throwable) : RocketDetailsUiState
+    object Loading : RocketDetailsUiState
 }

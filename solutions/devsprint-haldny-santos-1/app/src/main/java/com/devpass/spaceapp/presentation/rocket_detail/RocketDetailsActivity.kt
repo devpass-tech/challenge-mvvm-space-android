@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.devpass.spaceapp.R
@@ -15,8 +16,6 @@ class RocketDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRocketDetailsBinding
 
     private val viewModel: RocketDetailsViewModel by viewModels()
-
-    private var rocketDetail: RocketDetail? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class RocketDetailsActivity : AppCompatActivity() {
     }
 
 
-    private fun updateUI() {
+    private fun updateUI(rocketDetail: RocketDetail?) {
         rocketDetail?.let { model ->
             with(binding) {
                 tbRocketDetailsTitle.text = model.name
@@ -46,30 +45,36 @@ class RocketDetailsActivity : AppCompatActivity() {
                     .load(model.image)
                     .placeholder(android.R.color.transparent)
                     .into(imageViewRocketDetails)
+                showLoadingAnim(false)
 
             }
         }
     }
 
-    private fun showDialogErrorMessage() {
+    private fun showDialogError(error: String?) {
+        showLoadingAnim(false)
+        val message = error ?: getString(R.string.rocket_details_dialog_error_message)
         AlertDialog.Builder(baseContext)
             .setTitle(R.string.rocket_details_dialog_error_title)
-            .setMessage(R.string.rocket_details_dialog_error_message)
+            .setMessage(message)
             .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }.show()
     }
 
     private fun renderRocketDetail() {
-        viewModel.rocketDetailsData.observe(this) {
-            it.data?.let { model ->
-                rocketDetail = model
-                updateUI()
-            }
-            if (it.showError) {
-                showDialogErrorMessage()
+        viewModel.uiState.observe(this) { uiState ->
+            when (uiState) {
+                is RocketDetailsUiState.Loading -> showLoadingAnim(true)
+                is RocketDetailsUiState.Success -> updateUI(uiState.data)
+                is RocketDetailsUiState.Error -> showDialogError(uiState.exception.message)
             }
         }
     }
 
+    private fun showLoadingAnim(isVisible: Boolean) {
+        binding.progressBarRocketDetails.isVisible = isVisible
+    }
+
 }
+
