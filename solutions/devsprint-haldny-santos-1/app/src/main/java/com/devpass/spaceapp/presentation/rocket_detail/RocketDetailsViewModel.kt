@@ -22,19 +22,21 @@ class RocketDetailsViewModel(
 
     fun loadRocketDetails(id: String) {
         viewModelScope.launch {
-            delay(3000)
-            try {
-                val data: RocketDetail = rocketDetailRepository.fetchRocketDetail(id)
+            val data: RocketDetail = rocketDetailRepository.fetchRocketDetail(id)
+            runCatching {
+                _uiState.value = RocketDetailsUiState.Loading
+                delay(3000)
+            }.onSuccess {
                 _uiState.value = RocketDetailsUiState.Success(data)
-            } catch (exception: Exception) {
-                _uiState.value = RocketDetailsUiState.Error(exception)
+            }.onFailure {
+                _uiState.value = RocketDetailsUiState.Error(it)
             }
         }
     }
 }
 
-sealed class RocketDetailsUiState {
-    data class Success(val data: RocketDetail?) : RocketDetailsUiState()
-    data class Error(val exception: Throwable) : RocketDetailsUiState()
-    object Loading : RocketDetailsUiState()
+sealed interface RocketDetailsUiState {
+    data class Success(val data: RocketDetail?) : RocketDetailsUiState
+    data class Error(val exception: Throwable) : RocketDetailsUiState
+    object Loading : RocketDetailsUiState
 }
