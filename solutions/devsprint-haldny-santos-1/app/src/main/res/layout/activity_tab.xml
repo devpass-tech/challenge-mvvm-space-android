@@ -30,7 +30,7 @@
         android:layout_width="@dimen/width_image"
         android:layout_height="@dimen/height_image"
         android:layout_marginTop="@dimen/margin_top_image"
-        android:src="@drawable/spacex_dragon_crs20_patch01"
+        tools:src="@drawable/spacex_dragon_crs20_patch01"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_tittle"
-        android:text="@string/text_tittle"
+        tools:text="@string/text_tittle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivImageSpace" />
@@ -55,7 +55,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_date"
-        android:text="@string/launch_date"
+        tools:text="@string/launch_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTittle" />
@@ -66,7 +66,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_status"
-        android:text="@string/label_status"
+        tools:text="@string/label_status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDate" />

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import com.devpass.spaceapp.R
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -37,6 +36,7 @@ class LaunchpadDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         val toolbar = binding.includeToolbar.tvToolbarTitle
         toolbar.text = resources.getString(R.string.label_launchpad)
         toolbar.gravity = Gravity.CENTER
+        binding.includeToolbar.back.setOnClickListener { onBackPressed() }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
