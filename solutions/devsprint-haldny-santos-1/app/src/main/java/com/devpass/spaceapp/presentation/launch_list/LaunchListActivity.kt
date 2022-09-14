@@ -1,5 +1,6 @@
 package com.devpass.spaceapp.presentation.launch_list
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devpass.spaceapp.R
@@ -22,12 +24,15 @@ class LaunchListActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<LaunchListViewModel>()
 
-    private val snackBarError by lazy {
-        Snackbar.make(binding.root, R.string.error_message, Snackbar.LENGTH_INDEFINITE).apply {
-            setAction(R.string.retry) {
-                Toast.makeText(this@LaunchListActivity, "Try again clicked", Toast.LENGTH_LONG)
-                    .show()
-                viewModel.getLaunches()
+    private val alertDialogError by lazy {
+        AlertDialog.Builder(this@LaunchListActivity).apply {
+            with(this) {
+                setTitle(R.string.alert_dialog_error_title)
+                setMessage(R.string.alert_dialog_error_message)
+                setPositiveButton(
+                    R.string.alert_dialog_error_tryagain_button,
+                    tryAgainButtonClick()
+                )
             }
         }
     }
@@ -42,6 +47,10 @@ class LaunchListActivity : AppCompatActivity() {
         setupRecycleView()
         observeLaunchList()
 
+    }
+
+    private fun tryAgainButtonClick() = DialogInterface.OnClickListener { _, _ ->
+        viewModel.getLaunches()
     }
 
     private fun setupTitle() {
@@ -68,7 +77,7 @@ class LaunchListActivity : AppCompatActivity() {
                 }
                 is LaunchListViewModel.LaunchListUIState.Error -> {
                     binding.lottieRocketLoading.visibility = View.GONE
-                    snackBarError.show()
+                    alertDialogError.show()
                 }
                 is LaunchListViewModel.LaunchListUIState.Loading -> {
                     startLoading()
