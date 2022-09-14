@@ -5,5 +5,5 @@ import com.devpass.spaceapp.utils.NetworkResult
 
 interface FetchLaunchesRepository {
 
-    suspend fun fetchLaunches() : NetworkResult<List<LaunchModel>>
+    suspend fun fetchLaunches(): NetworkResult
 }

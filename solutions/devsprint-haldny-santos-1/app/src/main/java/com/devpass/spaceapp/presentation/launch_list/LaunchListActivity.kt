@@ -8,14 +8,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devpass.spaceapp.R
 import com.devpass.spaceapp.databinding.ActivityLaunchListBinding
 import com.devpass.spaceapp.presentation.LaunchActivity
 import com.devpass.spaceapp.presentation.view_model.LaunchListViewModel
-import com.devpass.spaceapp.utils.NetworkResult
 import com.google.android.material.snackbar.Snackbar
 
 class LaunchListActivity : AppCompatActivity() {
@@ -30,7 +27,7 @@ class LaunchListActivity : AppCompatActivity() {
             setAction(R.string.retry) {
                 Toast.makeText(this@LaunchListActivity, "Try again clicked", Toast.LENGTH_LONG)
                     .show()
-                observeLaunchList()
+                viewModel.getLaunches()
             }
         }
     }
@@ -55,7 +52,7 @@ class LaunchListActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLoading() {
+    private fun startLoading() {
         with(binding) {
             lottieRocketLoading.playAnimation()
             lottieRocketLoading.visibility = View.VISIBLE
@@ -65,16 +62,16 @@ class LaunchListActivity : AppCompatActivity() {
     private fun observeLaunchList() {
         viewModel.launches.observe(this) {
             when (it) {
-                is NetworkResult.Success -> {
+                is LaunchListViewModel.LaunchListUIState.Success -> {
                     adapter.submitList(it.data)
                     binding.lottieRocketLoading.visibility = View.GONE
                 }
-                is NetworkResult.Error -> {
+                is LaunchListViewModel.LaunchListUIState.Error -> {
                     binding.lottieRocketLoading.visibility = View.GONE
                     snackBarError.show()
                 }
-                is NetworkResult.Loading -> {
-                    setupLoading()
+                is LaunchListViewModel.LaunchListUIState.Loading -> {
+                    startLoading()
                 }
             }
         }

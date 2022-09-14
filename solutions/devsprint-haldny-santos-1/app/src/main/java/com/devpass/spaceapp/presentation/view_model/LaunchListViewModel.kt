@@ -8,38 +8,45 @@ import com.devpass.spaceapp.presentation.launch_list.LaunchModel
 import com.devpass.spaceapp.repository.FetchLaunchesRepository
 import com.devpass.spaceapp.repository.FetchLaunchesRepositoryImpl
 import com.devpass.spaceapp.utils.NetworkResult
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LaunchListViewModel(
     val repository: FetchLaunchesRepository = FetchLaunchesRepositoryImpl(),
 ) : ViewModel() {
 
-    private val _launches: MutableLiveData<NetworkResult<List<LaunchModel>>> =
-        MutableLiveData(NetworkResult.Loading())
-    val launches: LiveData<NetworkResult<List<LaunchModel>>> = _launches
-
-    private val loading: MutableLiveData<Boolean> = MutableLiveData()
-    private val error: MutableLiveData<Boolean> = MutableLiveData()
+    private val _launches: MutableLiveData<LaunchListUIState> = MutableLiveData()
+    val launches: LiveData<LaunchListUIState> = _launches
 
     init {
-        loading.postValue(true)
         getLaunches()
     }
 
-    private fun getLaunches() = viewModelScope.launch {
+    fun getLaunches() = viewModelScope.launch {
         safeLaunchesCall()
     }
 
     private suspend fun safeLaunchesCall() {
-        val response = repository.fetchLaunches()
-        kotlin.runCatching {
-            response
+        _launches.postValue(LaunchListUIState.Loading)
+        delay(3000)
+
+        runCatching {
+            repository.fetchLaunches()
         }.onSuccess {
-            _launches.postValue(it)
-            loading.postValue(false)
+            if (it is NetworkResult.Success) {
+                _launches.postValue(LaunchListUIState.Success(it.data))
+            }
+            if (it is NetworkResult.Error) {
+                _launches.postValue(LaunchListUIState.Error(it.exception))
+            }
         }.onFailure {
-            loading.postValue(false)
-            error.postValue(true)
+            _launches.postValue(LaunchListUIState.Error(it))
         }
+    }
+
+    sealed interface LaunchListUIState {
+        object Loading : LaunchListUIState
+        data class Error(val error: Throwable) : LaunchListUIState
+        data class Success(val data: List<LaunchModel>) : LaunchListUIState
     }
 }

@@ -1,17 +1,9 @@
 package com.devpass.spaceapp.utils
 
+import com.devpass.spaceapp.presentation.launch_list.LaunchModel
 import java.lang.Exception
 
-
-sealed class NetworkResult<T>(
-    data: T? = null,
-    exception: Exception? = null
-) {
-    data class Success<T>(val data: T) : NetworkResult<T>(data = data, exception = null)
-    data class Error<T>(val exception: Exception) : NetworkResult<T>(
-        data = null,
-        exception = exception
-    )
-
-    class Loading<T> : NetworkResult<T>()
+sealed interface NetworkResult {
+    data class Success(val data: List<LaunchModel>) : NetworkResult
+    data class Error(val exception: Exception) : NetworkResult
 }
