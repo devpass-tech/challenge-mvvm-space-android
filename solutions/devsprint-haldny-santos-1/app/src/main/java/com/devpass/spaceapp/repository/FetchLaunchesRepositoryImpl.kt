@@ -12,7 +12,7 @@ class FetchLaunchesRepositoryImpl(
     val mapper: LaunchModelMapper = LaunchModelMapperImpl()
 ) : FetchLaunchesRepository {
 
-    override suspend fun fetchLaunches(): NetworkResult {
+    override suspend fun fetchLaunches(): NetworkResult<List<LaunchModel>> {
         return try {
             val response = api.fetchNextLaunches(QueryParams(OptionsRequest(20))).docs
             val launchList = response.map {
@@ -20,7 +20,7 @@ class FetchLaunchesRepositoryImpl(
             }
             NetworkResult.Success(data = launchList)
         } catch (e: Exception) {
-            NetworkResult.Error(exception = e)
+            NetworkResult.Error<Nothing>(exception = e)
             throw RuntimeException(e)
         }
     }
