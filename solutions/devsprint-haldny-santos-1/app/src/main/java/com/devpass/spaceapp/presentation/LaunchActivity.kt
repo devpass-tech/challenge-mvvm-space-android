@@ -17,7 +17,7 @@ class LaunchActivity : AppCompatActivity() {
         setContentView(binding.root)
         model = intent.getParcelableExtra(LAUNCH_MODEL)
 
-        val fragments = listOf(FragmentDetails(), RocketFragment(), FragmentLaunchpad())
+        val fragments = listOf(FragmentDetails(), RocketFragment.getInstance(model?.rocketId), FragmentLaunchpad())
         val fragmentsPageTitle = listOf("Details", "Rocket", "Launchpad")
         val viewPagerAdapter = ViewPagerAdapter(
             fragments = fragments,

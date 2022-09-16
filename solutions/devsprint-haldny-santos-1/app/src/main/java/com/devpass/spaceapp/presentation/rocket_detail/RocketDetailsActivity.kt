@@ -27,8 +27,10 @@ class RocketDetailsActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launchWhenResumed {
-            val id = "5e9d0d96eda699382d09d1ee"
-            viewModel.loadRocketDetails(id)
+            val id = intent.getStringExtra(ARG_ROCKET)
+            id?.let {
+                viewModel.loadRocketDetails(id)
+            }
         }
 
         renderRocketDetail()
@@ -74,6 +76,10 @@ class RocketDetailsActivity : AppCompatActivity() {
 
     private fun showLoadingAnim(isVisible: Boolean) {
         binding.progressBarRocketDetails.isVisible = isVisible
+    }
+
+    companion object {
+        private const val ARG_ROCKET = "ARG_ROCKET"
     }
 
 }

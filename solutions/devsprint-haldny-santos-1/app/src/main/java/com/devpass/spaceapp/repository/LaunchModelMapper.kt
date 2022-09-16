@@ -25,7 +25,10 @@ class LaunchModelMapperImpl : LaunchModelMapper {
             launchesResponse.flightNumber.toString(),
             sdf.format(date),
             if (launchesResponse.status) "Success" else "Fail",
-            launchesResponse.links.patch.small
+            launchesResponse.links.patch.small,
+            launchesResponse.rocketId,
+            launchesResponse.details ?: "Empty",
+            launchesResponse.launchpadId
         )
     }
 }

@@ -13,6 +13,12 @@ data class LaunchesResponse(
     val status: Boolean,
     @SerializedName("flight_number")
     val flightNumber: Int,
+    @SerializedName("rocket")
+    val rocketId: String,
+    @SerializedName("details")
+    val details: String?,
+    @SerializedName("launchpad")
+    val launchpadId: String
 )
 
 data class Links(
