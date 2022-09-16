@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devpass.spaceapp.model.RocketDetail
 import com.devpass.spaceapp.repository.RocketDetailRepository
-import com.devpass.spaceapp.repository.RocketDetailRepositoryImpl
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class RocketDetailsViewModel(
-    private val rocketDetailRepository: RocketDetailRepository = RocketDetailRepositoryImpl()
+    private val rocketDetailRepository: RocketDetailRepository
 ) : ViewModel() {
     private val _uiState = MutableLiveData<RocketDetailsUiState>()
     val uiState: LiveData<RocketDetailsUiState> = _uiState

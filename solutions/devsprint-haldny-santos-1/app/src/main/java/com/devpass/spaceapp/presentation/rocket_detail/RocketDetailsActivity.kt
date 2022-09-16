@@ -1,7 +1,6 @@
 package com.devpass.spaceapp.presentation.rocket_detail
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -10,12 +9,13 @@ import com.bumptech.glide.Glide
 import com.devpass.spaceapp.R
 import com.devpass.spaceapp.databinding.ActivityRocketDetailsBinding
 import com.devpass.spaceapp.model.RocketDetail
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RocketDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRocketDetailsBinding
 
-    private val viewModel: RocketDetailsViewModel by viewModels()
+    private val viewModel: RocketDetailsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
