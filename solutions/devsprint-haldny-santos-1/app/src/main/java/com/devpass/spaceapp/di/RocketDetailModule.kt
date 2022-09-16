@@ -6,7 +6,7 @@ import com.devpass.spaceapp.repository.RocketDetailRepositoryImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val appModule = module {
+val rocketDetailModule = module {
 
     single<RocketDetailRepository> { RocketDetailRepositoryImpl(get()) }
 
