@@ -6,8 +6,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,14 +13,15 @@ import com.devpass.spaceapp.R
 import com.devpass.spaceapp.databinding.ActivityLaunchListBinding
 import com.devpass.spaceapp.presentation.LaunchActivity
 import com.devpass.spaceapp.presentation.view_model.LaunchListViewModel
-import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class LaunchListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLaunchListBinding
 
     private lateinit var adapter: LaunchListAdapter
 
-    private val viewModel by viewModels<LaunchListViewModel>()
+    private val viewModel: LaunchListViewModel by viewModel()
 
     private val alertDialogError by lazy {
         AlertDialog.Builder(this@LaunchListActivity).apply {

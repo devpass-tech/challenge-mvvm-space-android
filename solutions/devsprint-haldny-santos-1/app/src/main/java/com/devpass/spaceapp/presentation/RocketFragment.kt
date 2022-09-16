@@ -18,12 +18,13 @@ import com.devpass.spaceapp.model.RocketDetail
 import com.devpass.spaceapp.presentation.rocket_detail.RocketDetailsActivity
 import com.devpass.spaceapp.presentation.rocket_detail.RocketDetailsUiState
 import com.devpass.spaceapp.presentation.rocket_detail.RocketDetailsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RocketFragment : Fragment() {
 
     private lateinit var binding: FragmentRocketBinding
 
-    private val viewModel: RocketDetailsViewModel by viewModels()
+    private val viewModel: RocketDetailsViewModel by viewModel()
 
     private var rocketId = ""
 

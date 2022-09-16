@@ -12,7 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LaunchListViewModel(
-    val repository: FetchLaunchesRepository = FetchLaunchesRepositoryImpl(),
+    val repository: FetchLaunchesRepository,
 ) : ViewModel() {
 
     private val _launches: MutableLiveData<LaunchListUIState> = MutableLiveData()
