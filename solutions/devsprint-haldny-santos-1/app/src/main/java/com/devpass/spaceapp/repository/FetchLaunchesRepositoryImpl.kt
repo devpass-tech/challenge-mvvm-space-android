@@ -8,8 +8,8 @@ import com.devpass.spaceapp.presentation.launch_list.LaunchModel
 import com.devpass.spaceapp.utils.NetworkResult
 
 class FetchLaunchesRepositoryImpl(
-    val api: SpaceXAPIService = NetworkService.getSpaceXAPI(),
-    val mapper: LaunchModelMapper = LaunchModelMapperImpl()
+    val api: SpaceXAPIService,
+    val mapper: LaunchModelMapper,
 ) : FetchLaunchesRepository {
 
     override suspend fun fetchLaunches(): NetworkResult<List<LaunchModel>> {
