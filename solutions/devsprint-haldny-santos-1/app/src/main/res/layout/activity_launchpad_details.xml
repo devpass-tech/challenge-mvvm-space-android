@@ -29,44 +29,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default_text"
-        android:text="@string/label_launchpad"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@id/map" />
+        map:layout_constraintTop_toBottomOf="@id/map"
+        tools:text="@string/label_launchpad"/>
 
     <TextView
         android:id="@+id/tv_name_launchpad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default_text"
-        android:text="@string/label_name_launchpad"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@id/tv_launchpad" />
+        map:layout_constraintTop_toBottomOf="@id/tv_launchpad"
+        tools:text="@string/label_name_launchpad"/>
 
     <TextView
         android:id="@+id/tv_launch_site"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default_text"
-        android:text="@string/label_site_launch"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@id/tv_name_launchpad" />
+        map:layout_constraintTop_toBottomOf="@id/tv_name_launchpad"
+        tools:text="@string/label_site_launch"/>
 
     <TextView
         android:id="@+id/tv_launch_attempts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default_text"
-        android:text="@string/label_launch_attempts"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@id/tv_launch_site" />
+        map:layout_constraintTop_toBottomOf="@id/tv_launch_site"
+        tools:text="@string/label_launch_attempts" />
 
     <TextView
         android:id="@+id/tv_launch_successes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default_text"
-        android:text="@string/label_launch_successes"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@id/tv_launch_attempts" />
+        map:layout_constraintTop_toBottomOf="@id/tv_launch_attempts"
+        tools:text="@string/label_launch_successes"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

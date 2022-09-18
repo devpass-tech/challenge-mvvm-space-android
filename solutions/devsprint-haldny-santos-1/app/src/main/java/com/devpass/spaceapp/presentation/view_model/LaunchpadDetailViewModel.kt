@@ -13,13 +13,13 @@ class LaunchpadDetailViewModel(
 ) : ViewModel() {
 
     private val _launchpadDetail: MutableLiveData<LaunchpadDetailUIState> = MutableLiveData()
-    val launchpadDetail: LiveData<LaunchpadDetailUIState> = _launchpadDetail
+    val launchpadDetailUI: LiveData<LaunchpadDetailUIState> = _launchpadDetail
 
-    private suspend fun safeLaunchpadDetailCall(id: String) {
+    suspend fun safeLaunchpadDetailCall(id: String) {
         _launchpadDetail.postValue(LaunchpadDetailUIState.Loading)
 
         runCatching {
-            repository.fetchLaunchpadDetails(id)
+            repository.fetchLaunchpad(id)
         }.onSuccess {
             if (it is NetworkResult.Success) {
                 _launchpadDetail.postValue(LaunchpadDetailUIState.Success(it.data))
