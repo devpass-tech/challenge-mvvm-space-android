@@ -3,6 +3,7 @@ package com.devpass.spaceapp.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.devpass.spaceapp.databinding.ActivityTabBinding
+import com.devpass.spaceapp.presentation.rocket.RocketFragment
 
 class LaunchActivity : AppCompatActivity() {
 
